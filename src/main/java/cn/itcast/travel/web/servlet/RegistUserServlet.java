@@ -12,6 +12,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
@@ -19,6 +20,21 @@ import java.util.Map;
 @WebServlet("/registUserServlet")
 public class RegistUserServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        //获取验证码
+        String checkCode = request.getParameter("check");
+        HttpSession session = request.getSession();
+        String session_checkcode = (String) session.getAttribute("CHECKCODE_SERVER");
+        session.removeAttribute("CHECKCODE_SERVER");
+        if (session_checkcode==null||!(checkCode.equalsIgnoreCase(session_checkcode))){
+            ResultInfo info=new ResultInfo();
+            info.setFlag(false);
+            info.setErrorMsg("验证码错误");
+            ObjectMapper mapper=new ObjectMapper();
+            String json = mapper.writeValueAsString(info);
+            response.setContentType("application/json;charset=utf-8");
+            response.getWriter().write(json);
+            return;
+        }
         //获取注册表达信息
         Map<String, String[]> userMap = request.getParameterMap();
         User user=new User();

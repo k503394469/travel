@@ -9,13 +9,18 @@ public class UserServiceImpl implements UserService {
     private UserDao dao=new UserDaoImpl();
     @Override
     public boolean saveUser(User user) {
+        User find_u=null;
         //获取是否有用户名存在
-        User find_u = dao.findUserByName(user.getUsername());
-        if(find_u!=null) {
+        try {
+            find_u = dao.findUserByName(user.getUsername());
+            if(find_u!=null) {
+                return false;
+            }else {
+                dao.saveUser(user);
+                return true;
+            }
+        } catch (Exception e) {
             return false;
-        }else {
-            dao.saveUser(user);
-            return true;
         }
     }
 }
