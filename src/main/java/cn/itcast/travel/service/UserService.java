@@ -6,4 +6,6 @@ public interface UserService {
     boolean saveUser(User user);
 
     boolean activeUser(String code);
+
+    User login(User loginUser);
 }

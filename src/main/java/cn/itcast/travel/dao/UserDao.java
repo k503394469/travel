@@ -15,4 +15,10 @@ public interface UserDao {
      * @param user
      */
     void saveUser(User user);
+
+    User findUserByCode(String code);
+
+    void setUserStatus(User user);
+
+    User findUserByNameAndPassword(String username, String password);
 }
