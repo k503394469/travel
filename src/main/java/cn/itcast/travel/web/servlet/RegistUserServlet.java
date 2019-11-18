@@ -4,6 +4,8 @@ import cn.itcast.travel.domain.ResultInfo;
 import cn.itcast.travel.domain.User;
 import cn.itcast.travel.service.UserService;
 import cn.itcast.travel.service.impl.UserServiceImpl;
+import cn.itcast.travel.util.MailUtils;
+import cn.itcast.travel.util.UuidUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.beanutils.BeanUtils;
 
@@ -38,6 +40,8 @@ public class RegistUserServlet extends HttpServlet {
         //»ñÈ¡×¢²á±í´ïÐÅÏ¢
         Map<String, String[]> userMap = request.getParameterMap();
         User user=new User();
+        user.setCode(UuidUtil.getUuid());
+        user.setStatus("N");
         try {
             BeanUtils.populate(user,userMap);
         } catch (Exception e) {
@@ -47,7 +51,13 @@ public class RegistUserServlet extends HttpServlet {
         boolean flag=service.saveUser(user);
         ResultInfo info=new ResultInfo();
         if (flag){
-            info.setFlag(true);
+            try {
+                MailUtils.sendMail(user.getEmail(),"<a href='http://localhost:6324/t/activeUserServlet?code="+user.getCode()+"'>Çëµã»÷¼¤»îÕËºÅ</a>","ÕËºÅ¼¤»î");
+                info.setFlag(true);
+            } catch (Exception e) {
+                info.setFlag(false);
+                info.setErrorMsg("×¢²áÊ§°Ü");
+            }
         }else {
             info.setFlag(false);
             info.setErrorMsg("×¢²áÊ§°Ü");
@@ -57,6 +67,7 @@ public class RegistUserServlet extends HttpServlet {
         String json = mapper.writeValueAsString(info);
         response.setContentType("application/json;charset=utf-8");
         response.getWriter().write(json);
+
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

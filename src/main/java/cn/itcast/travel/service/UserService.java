@@ -4,4 +4,6 @@ import cn.itcast.travel.domain.User;
 
 public interface UserService {
     boolean saveUser(User user);
+
+    boolean activeUser(String code);
 }

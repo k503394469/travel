@@ -23,4 +23,15 @@ public class UserServiceImpl implements UserService {
             return false;
         }
     }
+
+    @Override
+    public boolean activeUser(String code) {
+        User user=dao.findUserByCode(code);
+        if (user!=null){
+            user.setStatus("Y");
+            dao.setUserStatus(user);
+            return true;
+        }
+        return false;
+    }
 }

@@ -23,13 +23,16 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public void saveUser(User user) {
-        String sql = "insert into tab_user(username,password,name,birthday,sex,telephone,email) values(?,?,?,?,?,?,?)";
-        jt.update(sql, user.getUsername(),
+        String sql = "insert into tab_user(username,password,name,birthday,sex,telephone,email,status,code) values(?,?,?,?,?,?,?,?,?)";
+        jt.update(sql,
+                user.getUsername(),
                 user.getPassword(),
                 user.getName(),
                 user.getBirthday(),
                 user.getSex(),
                 user.getTelephone(),
-                user.getEmail());
+                user.getEmail(),
+                user.getStatus(),
+                user.getCode());
     }
 }
