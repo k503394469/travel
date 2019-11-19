@@ -1,8 +1,11 @@
 <script>
     $(function () {
-        $.post("/t/findUserNameServlet", {}, function (data) {
+        $.post("/t/user/findOneUser", {}, function (data) {
            $("#userInfo_span").html("welcome,"+data.name);
-        }, "json")
+        }, "json");
+        $("#exit").click(function () {
+            location.href="/t/user/exit";
+        });
     });
 </script>
 <!-- 头部 start -->
@@ -20,9 +23,7 @@
         <div class="login">
             <span id="userInfo_span"></span>
             <a href="myfavorite.html" class="collection">我的收藏</a>
-            <a href="javascript:function f() {
-              location.href='/t/exitServlet'
-            };">退出</a>
+            <a id="exit" href="javascript:void(0);">退出</a>
         </div>
     </div>
     <div class="header_wrap">

@@ -21,7 +21,7 @@
 	<script>
 		$(function () {
 			$("#sub_btu").click(function () {
-				$.post("/t/loginServlet",$("#loginForm").serialize(),function (data) {
+				$.post("/t/user/login",$("#loginForm").serialize(),function (data) {
 					if (data.flag){
 						location.href="/t/index.html";
 					}else {
