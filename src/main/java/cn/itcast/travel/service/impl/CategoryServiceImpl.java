@@ -6,6 +6,7 @@ import cn.itcast.travel.domain.Category;
 import cn.itcast.travel.service.CategoryService;
 import cn.itcast.travel.util.JedisUtil;
 import redis.clients.jedis.Jedis;
+import redis.clients.jedis.Tuple;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -18,7 +19,8 @@ public class CategoryServiceImpl implements CategoryService {
     public List<Category> findAll() {
         List<Category> categoryList = null;
         Jedis jedis = JedisUtil.getJedis();
-        Set<String> categorySet = jedis.zrange("category", 0, -1);
+//        Set<String> categorySet = jedis.zrange("category", 0, -1);
+        Set<Tuple> categorySet = jedis.zrangeWithScores("category", 0, -1);
         if (categorySet==null||categorySet.size()==0){
             categoryList=dao.findAll();
             for (Category categorys : categoryList) {
@@ -27,9 +29,10 @@ public class CategoryServiceImpl implements CategoryService {
         }else {
             //如果存在于redis内部,则直接获取,把set转为list
             categoryList=new LinkedList<>();
-            for (String cname : categorySet) {
+            for (Tuple tupleTemp : categorySet) {
                 Category temp=new Category();
-                temp.setCname(cname);
+                temp.setCid((int) tupleTemp.getScore());
+                temp.setCname(tupleTemp.getElement());
                 categoryList.add(temp);
             }
         }
