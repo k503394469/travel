@@ -1,5 +1,8 @@
 package cn.itcast.travel.web.servlet;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -20,6 +23,15 @@ public class BaseServlet extends HttpServlet {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
+    }
+    public String writeJsonAsString(Object obj){
+        ObjectMapper mapper=new ObjectMapper();
+        String json=null;
+        try {
+            json=mapper.writeValueAsString(obj);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        return json;
     }
 }
