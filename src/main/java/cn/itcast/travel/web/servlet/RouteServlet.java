@@ -19,6 +19,7 @@ public class RouteServlet extends BaseServlet {
         String cidStr = request.getParameter("cid");
         String currentPageStr = request.getParameter("currentPage");
         String pageSizeStr = request.getParameter("pageSize");
+        System.out.println(pageSizeStr);
 
         int cid=0;
         if (cidStr!=null&&!"".equals(cidStr)){
