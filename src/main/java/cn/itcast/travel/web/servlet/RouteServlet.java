@@ -14,29 +14,23 @@ import java.io.IOException;
 
 @WebServlet("/route/*")
 public class RouteServlet extends BaseServlet {
-    private RouteService service=new RouteServiceImpl();
+    private RouteService service = new RouteServiceImpl();
+
     public void findQuery(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String cidStr = request.getParameter("cid");
         String currentPageStr = request.getParameter("currentPage");
-        String pageSizeStr = request.getParameter("pageSize");
-        System.out.println(pageSizeStr);
 
-        int cid=0;
-        if (cidStr!=null&&!"".equals(cidStr)){
-            cid=Integer.parseInt(cidStr);
+        int cid = 0;
+        if (cidStr != null && !"".equals(cidStr)) {
+            cid = Integer.parseInt(cidStr);
         }
-        int currentPage=0;
-        if (currentPageStr!=null&&!"".equals(currentPageStr)){
-            currentPage=Integer.parseInt(currentPageStr);
-        }else {
-            currentPage=1;
+        int currentPage = 0;
+        if (currentPageStr != null && !"".equals(currentPageStr)) {
+            currentPage = Integer.parseInt(currentPageStr);
+        } else {
+            currentPage = 1;
         }
-        int pageSize=0;
-        if (pageSizeStr!=null&&!"".equals(pageSizeStr)){
-            pageSize=Integer.parseInt(pageSizeStr);
-        }else {
-            pageSize=5;
-        }
+        int pageSize = 5;
 
         Page<Route> query = service.findQuery(cid, currentPage, pageSize);
 
