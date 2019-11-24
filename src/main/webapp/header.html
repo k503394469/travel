@@ -1,23 +1,32 @@
 <script>
     $(function () {
         $.post("/t/user/findOneUser", {}, function (data) {
-           $("#userInfo_span").html("welcome,"+data.name);
+            $("#userInfo_span").html("welcome," + data.name);
         }, "json");
         $("#exit").click(function () {
-            location.href="/t/user/exit";
+            location.href = "/t/user/exit";
         });
-        $.post("/t/category/findAll",{},function (data) {
-            var res='<li class="nav-active"><a href="index.html">首页</a></li>';
+        $.post("/t/category/findAll", {}, function (data) {
+            var res = '<li class="nav-active"><a href="index.html">首页</a></li>';
             for (var i = 0; i < data.length; i++) {
-                var li='<li><a href="route_list.html?cid='+data[i].cid+'">'+data[i].cname+'</a></li>';
-                res+=li;
+                var li = '<li><a href="route_list.html?cid=' + data[i].cid + '">' + data[i].cname + '</a></li>';
+                res += li;
             }
-            res+='<li><a href="favoriterank.html">收藏排行榜</a></li>';
+            res += '<li><a href="favoriterank.html">收藏排行榜</a></li>';
             $("#category").html(res);
+        });
+        $("#search-button").click(function () {
+            var cid = getParameter("cid");
+            var rname = $("#search_input").val();
+            window.location.href = "http://localhost:6324/t/route_list.html?cid=" + cid + "&rname=" + rname;
         });
     });
 </script>
 <!-- 头部 start -->
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</head>
 <header id="header">
     <div class="top_banner">
         <img src="images/top_banner.jpg" alt="">
@@ -41,8 +50,9 @@
                 <a href="/"><img src="images/logo.jpg" alt=""></a>
             </div>
             <div class="search">
-                <input name="" type="text" placeholder="请输入路线名称" class="search_input" autocomplete="off">
-                <a href="javascript:;" class="search-button">搜索</a>
+                <input name="" id="search_input" type="text" placeholder="请输入路线名称" class="search_input"
+                       autocomplete="off">
+                <a href="javascript:void(0);" id="search-button" class="search-button">搜索</a>
             </div>
             <div class="hottel">
                 <div class="hot_pic">
@@ -60,16 +70,6 @@
 <!-- 首页导航 -->
 <div class="navitem">
     <ul class="nav" id="category">
-<!--        <li class="nav-active"><a href="index.html">首页</a></li>-->
-<!--        <li><a href="route_list.html">门票</a></li>-->
-<!--        <li><a href="route_list.html">酒店</a></li>-->
-<!--        <li><a href="route_list.html">香港车票</a></li>-->
-<!--        <li><a href="route_list.html">出境游</a></li>-->
-<!--        <li><a href="route_list.html">国内游</a></li>-->
-<!--        <li><a href="route_list.html">港澳游</a></li>-->
-<!--        <li><a href="route_list.html">抱团定制</a></li>-->
-<!--        <li><a href="route_list.html">全球自由行</a></li>-->
-<!--        <li><a href="favoriterank.html">收藏排行榜</a></li>-->
     </ul>
 </div>
-    
+</html>

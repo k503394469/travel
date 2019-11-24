@@ -19,9 +19,12 @@ public class RouteServlet extends BaseServlet {
     public void findQuery(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String cidStr = request.getParameter("cid");
         String currentPageStr = request.getParameter("currentPage");
+        //ËÑË÷¹Ø¼ü´Ê
+        String rname=request.getParameter("rname");
+//        rname=new String(rname.getBytes("iso-8859-1"),"utf-8");
 
         int cid = 0;
-        if (cidStr != null && !"".equals(cidStr)) {
+        if (cidStr != null && !"".equals(cidStr)&&!"null".equals(cidStr)) {
             cid = Integer.parseInt(cidStr);
         }
         int currentPage = 0;
@@ -32,9 +35,9 @@ public class RouteServlet extends BaseServlet {
         }
         int pageSize = 5;
 
-        Page<Route> query = service.findQuery(cid, currentPage, pageSize);
-
+        Page<Route> query = service.findQuery(cid, currentPage, pageSize,rname);
         String pageJson = writeJsonAsString(query);
+        System.out.println(pageJson);
         response.setContentType("application/json;charset=utf-8");
         response.getWriter().print(pageJson);
     }

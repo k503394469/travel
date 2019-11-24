@@ -9,20 +9,24 @@
     <link rel="stylesheet" type="text/css" href="css/common.css">
     <link rel="stylesheet" href="css/search.css">
     <script src="js/jquery-3.3.1.js"></script>
+    <script src="js/getParameter.js"></script>
     <script>
         $(function () {
-            var para = location.search;
-            var cid = para.split("=")[1];
-            load(cid);
+            var cid = getParameter("cid");
+            var rname = getParameter("rname");
+            if (rname){
+                rname=window.decodeURIComponent(rname);
+            }
+            load(cid,null,rname);
         });
-        function load(cid, currentPage) {
-            $.post("/t/route/findQuery", {cid: cid,currentPage:currentPage}, function (pageInfo) {
+        function load(cid, currentPage,rname) {
+            $.post("/t/route/findQuery", {cid: cid,currentPage:currentPage,rname:rname}, function (pageInfo) {
                 $("#totalPage").html(pageInfo.totalPage);
                 $("#totalCount").html(pageInfo.totalCount);
                 //添加拼接分页按钮
                 var res = '';
-                var homePage = '<li onclick="load(cid)"><a href="javascript:load('+cid+');">首页</a></li>';
-                var pPage = '<li class="threeword" onclick="javascript:load('+cid+','+(pageInfo.currentPage-1)+')"><a href="javascript:load('+cid+','+(pageInfo.currentPage-1)+')">上一页</a></li>';
+                var homePage = '<li onclick="load('+cid+',1,\''+rname+'\')"><a href="javascript:void(0);">首页</a></li>';
+                var pPage = '<li class="threeword" onclick="load('+cid+','+(pageInfo.currentPage-1)+',\''+rname+'\')"><a href="javascript:void(0)">上一页</a></li>';
                 res += homePage + pPage;
 
                 //分页工具条布局效果
@@ -54,15 +58,15 @@
                 for (var i = begin; i <= end; i++) {
                     var page='';
                     if (pageInfo.currentPage==i){
-                        page = '<li onclick="load('+cid+','+i+')" class="curPage"><a href="javascript:load('+cid+','+i+');">' + i + '</a></li>';
+                        page = '<li onclick="load('+cid+','+i+',\''+rname+'\')" class="curPage"><a href="javascript:void(0);">' + i + '</a></li>';
                     }else {
-                        page = '<li onclick="load('+cid+','+i+')"><a href="javascript:load('+cid+','+i+');">' + i + '</a></li>';
+                        page = '<li onclick="load('+cid+','+i+',\''+rname+'\')"><a href="javascript:void(0);">' + i + '</a></li>';
                     }
                     res += page;
                 }
 
-                var nPage = '<li class="threeword" onclick="javascript:load('+cid+','+((pageInfo.currentPage+1>pageInfo.totalPage)?pageInfo.totalPage:pageInfo.currentPage+1)+')"><a href="javascript:load('+cid+','+((pageInfo.currentPage+1>pageInfo.totalPage)?pageInfo.totalPage:pageInfo.currentPage+1)+')">下一页</a></li>';
-                var lPage = '<li class="threeword" onclick="load('+cid+','+pageInfo.totalPage+')"><a href="javascript:;">末页</a></li>';
+                var nPage = '<li class="threeword" onclick="load('+cid+','+((pageInfo.currentPage+1>pageInfo.totalPage)?pageInfo.totalPage:pageInfo.currentPage+1)+',\''+rname+'\')"><a href="javascript:void(0)">下一页</a></li>';
+                var lPage = '<li class="threeword" onclick="load('+cid+','+pageInfo.totalPage+',\''+rname+'\')"><a href="javascript:;">末页</a></li>';
                 res += nPage + lPage;
                 $("#pageLink").html(res);
                 //页面数据加载
