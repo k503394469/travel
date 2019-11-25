@@ -53,4 +53,11 @@ public class RouteDaoImpl implements RouteDao {
         System.out.println(sql);
         return routeList;
     }
+
+    @Override
+    public Route findOneRoute(int rid) {
+        String sql="select * from tab_route where rid=?";
+        Route route = jt.queryForObject(sql, new BeanPropertyRowMapper<>(Route.class), rid);
+        return route;
+    }
 }

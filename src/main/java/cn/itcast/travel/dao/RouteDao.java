@@ -7,4 +7,6 @@ import java.util.List;
 public interface RouteDao {
     int findRouteCount(int cid,String rname);
     List<Route> findRouteByPage(int cid,int start,int pageSize,String rname);
+
+    Route findOneRoute(int rid);
 }

@@ -10,6 +10,7 @@ import java.util.List;
 
 public class RouteServiceImpl implements RouteService {
     private RouteDao dao=new RouteDaoImpl();
+
     @Override
     public Page<Route> findQuery(int cid, int currentPage, int pageSize,String rname) {
         Page<Route> page=new Page<>();
@@ -29,5 +30,11 @@ public class RouteServiceImpl implements RouteService {
         List<Route> routeList = dao.findRouteByPage(cid, start, pageSize,rname);
         page.setRouteList(routeList);
         return page;
+    }
+
+    @Override
+    public Route findOneRoute(int rid) {
+        Route route = dao.findOneRoute(rid);
+        return route;
     }
 }
