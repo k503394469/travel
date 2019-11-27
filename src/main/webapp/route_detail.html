@@ -135,7 +135,7 @@
     });
     $(function () {
         var rid = getParameter("rid");
-        $.get("/t/route/route_detail", {rid: rid}, function (routeInfo) {
+        $.post("/t/route/route_detail", {rid: rid}, function (routeInfo) {
             var route_de = '    <p class="pros_title">' + routeInfo.rname + '</p>\n' +
                 '            <p class="hot">' + routeInfo.routeIntroduce + '</p>\n' +
                 '            <div class="pros_other">\n' +
@@ -177,7 +177,7 @@
             $("#picList").html(res);
         }, "json");
         picShow();
-        $.get("/t/route/isFavorite", {rid: rid}, function (isFavorite) {
+        $.post("/t/route/isFavorite", {rid: rid}, function (isFavorite) {
             //true 为已经收藏,false为 未收藏
             if (isFavorite) {
                 // <a class="btn"><i class="glyphicon glyphicon-heart-empty"></i>点击收藏</a>
