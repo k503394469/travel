@@ -6,4 +6,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 
 public interface FavoriteDao {
     Favorite findFavoriteByRidAndUid(int rid,int uid);
+    int findFavoriteCountByRid(int rid);
+
+    void add(int rid, int uid);
 }

@@ -1,6 +1,8 @@
 package cn.itcast.travel.service.impl;
 
+import cn.itcast.travel.dao.FavoriteDao;
 import cn.itcast.travel.dao.RouteDao;
+import cn.itcast.travel.dao.impl.FavoriteDaoImpl;
 import cn.itcast.travel.dao.impl.RouteDaoImpl;
 import cn.itcast.travel.domain.Page;
 import cn.itcast.travel.domain.Route;
@@ -10,7 +12,7 @@ import java.util.List;
 
 public class RouteServiceImpl implements RouteService {
     private RouteDao dao=new RouteDaoImpl();
-
+    private FavoriteDao favoriteDao=new FavoriteDaoImpl();
     @Override
     public Page<Route> findQuery(int cid, int currentPage, int pageSize,String rname) {
         Page<Route> page=new Page<>();
@@ -35,6 +37,8 @@ public class RouteServiceImpl implements RouteService {
     @Override
     public Route findOneRoute(int rid) {
         Route route = dao.findOneRoute(rid);
+        int count = favoriteDao.findFavoriteCountByRid(rid);
+        route.setCount(count);
         return route;
     }
 }

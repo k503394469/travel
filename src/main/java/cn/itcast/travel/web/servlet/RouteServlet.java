@@ -23,7 +23,7 @@ public class RouteServlet extends BaseServlet {
     private RouteService service = new RouteServiceImpl();
     private RouteImgService imgService = new RouteImgServiceImpl();
     private SellerService sellerService = new SellerServiceImpl();
-    private FavoriteService favoriteService=new FavoriteServiceImpl();
+    private FavoriteService favoriteService = new FavoriteServiceImpl();
 
     public void findQuery(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String cidStr = request.getParameter("cid");
@@ -64,18 +64,31 @@ public class RouteServlet extends BaseServlet {
     }
 
     public void isFavorite(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String rid_s=request.getParameter("rid");
-        int rid=Integer.parseInt(rid_s);
-        User u= (User) request.getSession().getAttribute("user");
+        String rid_s = request.getParameter("rid");
+        int rid = Integer.parseInt(rid_s);
+        User u = (User) request.getSession().getAttribute("user");
         int uid;
-        if (u==null){
-            uid=0;
-        }else {
-            uid=u.getUid();
+        if (u == null) {
+            uid = 0;
+        } else {
+            uid = u.getUid();
         }
         boolean favorite = favoriteService.isFavorite(rid, uid);
         String json = writeJsonAsString(favorite);
         response.setContentType("application/json;charset=utf-8");
         response.getWriter().print(json);
+    }
+
+    public void addFa(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String rid_s = request.getParameter("rid");
+        int rid = Integer.parseInt(rid_s);
+        User u = (User) request.getSession().getAttribute("user");
+        int uid;
+        if (u == null) {
+            uid = 0;
+        } else {
+            uid = u.getUid();
+        }
+        favoriteService.addFavouriteWithRIdAndUid(rid,uid);
     }
 }
