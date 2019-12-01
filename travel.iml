@@ -21,7 +21,9 @@
     <facet type="jpa" name="JPA">
       <configuration>
         <setting name="validation-enabled" value="true" />
-        <datasource-mapping />
+        <datasource-mapping>
+          <factory-entry name="Entities" />
+        </datasource-mapping>
         <naming-strategy-map />
       </configuration>
     </facet>
@@ -66,7 +68,6 @@
     <orderEntry type="library" name="Maven: org.springframework:spring-core:5.1.7.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-jcl:5.1.7.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-expression:5.1.7.RELEASE" level="project" />
-    <orderEntry type="library" name="Maven: org.springframework:spring-framework-bom:5.2.0.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-instrument:5.1.7.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-jdbc:5.1.7.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-jms:5.1.7.RELEASE" level="project" />

@@ -132,9 +132,10 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-framework-bom</artifactId>
-            <version>5.2.0.RELEASE</version>
-            <scope>pom</scope>
+            <version>5.2.1.RELEASE</version>
+            <type>pom</type>
         </dependency>
+
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-instrument</artifactId>
@@ -203,4 +204,7 @@
             <version>1.12.1</version>
         </dependency>
     </dependencies>
+    <build>
+        <finalName>t</finalName>
+    </build>
 </project>
