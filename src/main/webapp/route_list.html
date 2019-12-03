@@ -20,7 +20,7 @@
             load(cid,null,rname);
         });
         function load(cid, currentPage,rname) {
-            $.post("/t/route/findQuery", {cid: cid,currentPage:currentPage,rname:rname}, function (pageInfo) {
+            $.post("/route/findQuery", {cid: cid,currentPage:currentPage,rname:rname}, function (pageInfo) {
                 $("#totalPage").html(pageInfo.totalPage);
                 $("#totalCount").html(pageInfo.totalCount);
                 //添加拼接分页按钮

@@ -21,9 +21,9 @@
 	<script>
 		$(function () {
 			$("#sub_btu").click(function () {
-				$.post("/t/user/login",$("#loginForm").serialize(),function (data) {
+				$.post("/user/login",$("#loginForm").serialize(),function (data) {
 					if (data.flag){
-						location.href="/t/index.html";
+						location.href="/index.html";
 					}else {
 						$("#errorMsg").text(data.errorMsg);
 					}
@@ -60,7 +60,7 @@
 					<script type="text/javascript">
 						//图片点击事件
 						function changeCheckCode(img) {
-							img.src="/t/checkCode?"+new Date().getTime();
+							img.src="/checkCode?"+new Date().getTime();
 						}
 					</script>
 			</div>

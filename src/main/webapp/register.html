@@ -102,9 +102,9 @@
             $("#telephone").blur(checkPhone);
             $("#registerForm").submit(function () {
                 if (checkUsername() && checkPassword() && checkEmail() && checkBir() && checkName() && checkPhone() && checkCode()) {
-                    $.post("/t/user/regist", $(this).serialize(), function (data) {
+                    $.post("/user/regist", $(this).serialize(), function (data) {
                         if (data.flag) {
-                            location.href = "/t/register_ok.html";
+                            location.href = "/register_ok.html";
                         } else {
                             $("#errorMsg").text(data.errorMsg);
                         }
